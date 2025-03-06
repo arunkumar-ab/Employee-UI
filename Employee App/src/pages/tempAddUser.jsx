@@ -8,7 +8,7 @@ export default function TempAddUser() {
     lastName: "",
     email: "",
     phoneNumber: "",
-    hireDate: "",
+    hireDate: new Date("2025-02-24").toISOString().split('T')[0],
     jobTitle: "",
     department: 1, // Default department ID
     salary: "",
