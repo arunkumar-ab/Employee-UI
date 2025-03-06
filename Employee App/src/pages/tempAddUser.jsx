@@ -4,16 +4,16 @@ import axios from "axios";
 
 export default function TempAddUser() {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phoneNumber: "",
-    hireDate: new Date("2025-02-24").toISOString().split('T')[0],
-    jobTitle: "",
-    department: 1, // Default department ID
-    salary: "",
-    password: "",
-    role: "user", // Default role
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "phone": "",
+    "hireDate": new Date("2025-02-24").toISOString().split('T')[0],
+    "jobTitle": "",
+    "departmentId": 1, // Default department ID
+    "salary": 0,
+    "password": "",
+    "role": "user", // Default role
   });
 
   const navigate = useNavigate();
@@ -41,8 +41,10 @@ export default function TempAddUser() {
     // Log the form data (for now, no backend request)
     console.log("Form submitted with the following data:", formData);
 
+   
+
     try {
-      // Send POST request to the backend API
+      // Send POST request to the backend API with reordered data
       const response = await axios.post("http://localhost:5049/api/register", formData);
 
       if (response.status === 200) {
@@ -94,7 +96,7 @@ export default function TempAddUser() {
         <div className="mb-4">
           <input
             type="text"
-            name="phoneNumber"
+            name="phone"
             placeholder="Phone Number"
             className="bg-gray-700 text-white border border-gray-600 p-2 rounded w-full"
             onChange={handleChange}
@@ -124,7 +126,7 @@ export default function TempAddUser() {
         {/* Department Dropdown */}
         <div className="mb-4">
           <select
-            name="department"
+            name="departmentId"
             className="bg-gray-700 text-white border border-gray-600 p-2 rounded w-full"
             onChange={handleChange}
             required
