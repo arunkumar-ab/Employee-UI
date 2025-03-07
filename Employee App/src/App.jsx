@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import AdminDashboard from "./pages/AdminDashboard"; // Admin Dashboard
 import UserDashboard from "./pages/UserDashboard"; // User-specific Dashboard
 import AddUser from "./pages/tempAddUser";
+import EditUser from "./pages/EditUser";
 function App() {
   return (
     <Router>
@@ -21,7 +22,7 @@ function App() {
         <Route path="/user-dashboard" element={<UserDashboard />} />
 
         <Route path="/add-user" element={<AddUser />} />
-
+        <Route path="/edit/:id" element={<EditUser />} />
         
       </Routes>
     </Router>

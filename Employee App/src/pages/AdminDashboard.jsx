@@ -1,22 +1,22 @@
 import { useState } from "react";
 import { Menu, Bell, Settings, MoreHorizontal } from "lucide-react";
-import { Link } from "react-router-dom";
 import AddUser from "./tempAddUser";
-import Search from "./EmployeeSearch"; // Import Search component
+import Search from "./EmployeeSearch";
+import EditUser from "./EditUser";
 
 export default function AdminDashboard() {
   const [isOpen, setIsOpen] = useState(false);
   const [isManageOpen, setIsManageOpen] = useState(false);
   const [currentView, setCurrentView] = useState("home");
+  const [selectedEmployee, setSelectedEmployee] = useState(null);
 
-  // Function to change view
-  const handleViewChange = (view) => {
+  const handleViewChange = (view, employee = null) => {
     setCurrentView(view);
+    setSelectedEmployee(employee);
   };
 
   return (
     <div className="min-h-screen bg-gray-800 text-white">
-      {/* Fixed Header */}
       <header className="bg-gray-900 p-4 flex items-center justify-between fixed top-0 left-0 w-full z-10">
         <div className="flex items-center">
           <button
@@ -47,7 +47,6 @@ export default function AdminDashboard() {
       </header>
 
       <div className="flex flex-1 pt-16">
-        {/* Sidebar */}
         <div
           className={`fixed top-16 left-0 h-full w-64 bg-gray-900 p-4 transform ${
             isOpen ? "translate-x-0" : "-translate-x-full"
@@ -77,24 +76,23 @@ export default function AdminDashboard() {
                 <li
                   className="p-2 hover:bg-gray-700 cursor-pointer"
                   onClick={() => {
-                    handleViewChange("addUser"); // ✅ Fix: Updates state properly
-                    setIsManageOpen(false); // Close submenu
+                    handleViewChange("addUser");
+                    setIsManageOpen(false);
                   }}
                 >
                   Add User
                 </li>
-                <li className="p-2 hover:bg-gray-700 cursor-pointer">
+                {/* <li className="p-2 hover:bg-gray-700 cursor-pointer">
                   <Link to="/edit-user">Edit User</Link>
-                </li>
-                <li className="p-2 hover:bg-gray-700 cursor-pointer">
+                </li> */}
+                {/* <li className="p-2 hover:bg-gray-700 cursor-pointer">
                   <Link to="/delete-user">Delete User</Link>
-                </li>
+                </li> */}
               </ul>
             )}
           </ul>
         </div>
 
-        {/* Main Content */}
         <div
           className={`flex-1 p-6 transition-all duration-300 ${
             isOpen ? "ml-64" : "ml-0"
@@ -107,7 +105,8 @@ export default function AdminDashboard() {
           )}
 
           {currentView === "addUser" && <AddUser />}
-          {currentView === "search" && <Search />}
+          {currentView === "search" && <Search handleViewChange={handleViewChange} setIsManageOpen={setIsManageOpen} />}
+          {currentView === "editUser" && <EditUser employee={selectedEmployee} />}
         </div>
       </div>
     </div>
